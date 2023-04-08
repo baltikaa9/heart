@@ -8,7 +8,7 @@ import numpy as np
 class InputParameters:
     n: int
     step: float
-    x = np.arange(-3.5, 3.5, 0.001)
+    x = np.arange(-3.5, 3.5, 0.0003)
 
     def __post_init__(self):
         self.range = list(np.arange(0, self.n+self.step, self.step)) + \

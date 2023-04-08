@@ -10,6 +10,7 @@ fig = plt.figure(figsize=(5, 5), facecolor=Color.dark.value)
 
 root = Tk()
 root.wm_title("Сердечко")
+root.iconbitmap('F:\\Projects\\PycharmProjects\\heart\\heart.ico')
 root.geometry('1080x900+400+70')
 root.config(background=Color.dark.value)
 
@@ -25,10 +26,10 @@ frame2 = Frame(root, bg=Color.dark.value)
 frame2.place(relx=0.83, y=0, relwidth=0.17, relheight=1)
 
 # Навигация
-toolbar = NavigationToolbar2Tk(canvas, root)
-toolbar.config(background=Color.dark.value)
-toolbar._message_label.config(background=Color.dark.value, foreground=Color.white.value)
-toolbar.update()
+# toolbar = NavigationToolbar2Tk(canvas, root)
+# toolbar.config(background=Color.dark.value)
+# toolbar._message_label.config(background=Color.dark.value, foreground=Color.white.value)
+# toolbar.update()
 
 play = True
 
@@ -52,11 +53,14 @@ n_enter.insert(0, '100')
 def create_buttons():
     """Кнопки"""
     btn_pause = Button(frame2, text='Остановить', bg=Color.dark.value, foreground=Color.white.value,
-                       activebackground=Color.dark.value, activeforeground=Color.white.value, command=pause, width=14, height=1)
+                       activebackground=Color.dark.value, activeforeground=Color.white.value, command=pause, width=14,
+                       height=1)
     btn_restart = Button(frame2, text='Начать заного', bg=Color.dark.value, foreground=Color.white.value,
-                     activebackground=Color.dark.value, activeforeground=Color.white.value, command=restart, width=14, height=1)
+                         activebackground=Color.dark.value, activeforeground=Color.white.value, command=restart,
+                         width=14, height=1)
     btn_quit = Button(frame2, text='Выход', bg=Color.dark.value, foreground=Color.white.value,
-                      activebackground=Color.dark.value, activeforeground=Color.white.value, command=_quit, width=14, height=1)
+                      activebackground=Color.dark.value, activeforeground=Color.white.value, command=_quit, width=14,
+                      height=1)
 
     btn_pause.place(x=10, y=140)
     btn_restart.place(x=10, y=180)
@@ -68,6 +72,8 @@ def restart(event=None):
     try:
         speed = float(speed_enter.get())
         n = int(n_enter.get())
+        if speed > n:
+            raise ValueError
     except ValueError:
         return
     else:
@@ -100,6 +106,7 @@ def _quit(event=None):
 speed_enter.bind('<Return>', restart)
 n_enter.bind('<Return>', restart)
 root.bind('<Escape>', _quit)
+root.protocol('WM_DELETE_WINDOW', _quit)
 
 
 def init_gui():
